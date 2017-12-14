@@ -54,6 +54,9 @@ const developmentConfig = {
     inline:true,
     progress:true
   },
+  devServer: {
+    historyApiFallback: true,
+  },
   plugins: [HTMLWebpackPluginConfig, new webpack.HotModuleReplacementPlugin()]
 }
 
