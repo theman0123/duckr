@@ -6,22 +6,17 @@ import { HomeContainer } from 'containers'
 import { Navigation } from 'components'
 import Unknown from 'config/Unknown'
 
-import { container, innerContainer } from './styles.css'
+import { innerContainer } from './styles.css'
 
 class MainContainer extends React.Component {
   render () {
     console.log()
-    return (
-      <div className={container}>
-        
-        <Navigation isAuthed={this.props.isAuthed} />
-        
-        <div className={innerContainer}>
-          <Switch>
-            <Route exact path='/' component={HomeContainer} />
-            <Route component={Unknown} />
-          </Switch>
-        </div>
+    return (  
+      <div className={innerContainer}>
+        <Switch>
+          <Route exact path='/' component={HomeContainer} />
+          <Route component={Unknown} />
+        </Switch>
       </div>
     )
   }

@@ -48,12 +48,18 @@ const fetchingUserSuccess = (uid, user, timestamp) => {
 export const fetchAndHandleAuthedUser = () => {
   return function (dispatch) {
         dispatch(fetchingUser())
-    auth().then((user) => {
+    return auth().then((user) => {
       console.log('authenticated user', user)
       dispatch(fetchingUserSuccess(user.uid, user, Date.now()))
       dispatch(authUser(user.uid))
     })
     .catch((error) => dispatch(fetchingUserFailure(error)))
+  }
+}
+
+export const logoutAndUnauthed = () => {
+  return function (dispatch) {
+    dispatch(unauthUser)
   }
 }
   

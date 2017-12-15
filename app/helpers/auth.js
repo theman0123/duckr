@@ -11,3 +11,12 @@ const auth = () => {
 }
 
 export default auth
+
+
+export const checkIfAuthed = (store) => {
+  return store.getState().isAuthed
+}
+
+export const logout = () => {
+  console.log('logout')
+}
