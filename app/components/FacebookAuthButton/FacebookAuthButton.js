@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 
 import {button} from './styles.css'
 
-const FacebookAuthButton = ({isFetching, onAuth}) => {
+function FacebookAuthButton ({onAuth, isFetching}) {
   return (
     <button className={button} onClick={onAuth}>
       {isFetching === true

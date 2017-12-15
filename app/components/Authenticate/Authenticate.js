@@ -4,8 +4,7 @@ import { Home, FacebookAuthButton } from 'components'
 
 import { centeredContainer, largeHeader, errorMsg } from 'sharedStyles/styles.css'
 
-const Authenticate = ({isFetching, error, onAuth}) => {
-//  console.log(onAuth)
+function Authenticate ({onAuth, isFetching, error}) {
     return (
       
       <div className={centeredContainer}>
