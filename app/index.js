@@ -8,10 +8,6 @@ import users from 'redux/modules/user'
 
 const store = createStore(users, applyMiddleware(thunk))
 
-const checkAuth = () => {
-  console.log(arguments)
-}
-
 ReactDOM.render(
   <Provider store={store} >
     <GetRoutes />

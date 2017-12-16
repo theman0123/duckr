@@ -10,12 +10,10 @@ import { innerContainer } from './styles.css'
 
 class MainContainer extends React.Component {
   render () {
-    console.log()
     return (  
       <div className={innerContainer}>
         <Switch>
           <Route exact path='/' component={HomeContainer} />
-          <Route component={Unknown} />
         </Switch>
       </div>
     )
@@ -24,8 +22,11 @@ class MainContainer extends React.Component {
 
 MainContainer.propTypes = {
   isAuthed: PropTypes.bool.isRequired,
+  isFetching: PropTypes.bool.isRequired,
+  authUser: PropTypes.func.isRequired,
+  fetchingUserSuccess: PropTypes.func.isRequired,
 }
 
 export default connect(
-  (state) => ({isAuthed: state.isAuthed})
+  (state) => ({isAuthed: state.isAuthed}),
 )(MainContainer)
