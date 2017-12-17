@@ -25,7 +25,7 @@ class AuthenticateContainer extends React.Component {
   render () {
     const { redirect } = this.state
     
-    return redirect 
+    return redirect === true 
       ? <Redirect to='/feed' /> 
       : <Authenticate
           error={this.props.error}

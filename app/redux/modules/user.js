@@ -7,6 +7,7 @@ const UNAUTH_USER = 'UNAUTH_USER'
 const FETCHING_USER = 'FETCHING_USER'
 const FETCHING_USER_FAILURE = 'FETCHING_USER_FAILURE'
 const FETCHING_USER_SUCCESS = 'FETCHING_USER_SUCCESS'
+const REMOVE_FETCHING_USER = 'REMOVE_FETCHING_USER'
 
 
 
@@ -63,7 +64,14 @@ export const fetchAndHandleAuthedUser = () => {
 
 export const logoutAndUnauthed = () => {
   return function (dispatch) {
-    dispatch(unauthUser)
+    logout()
+    dispatch(unauthUser())
+  }
+}
+
+export const removeFetchingUser = () => {
+  return {
+    type: REMOVE_FETCHING_USER,
   }
 }
   
@@ -136,6 +144,11 @@ export default function users(state = initialState, action) {
           info: user(state[action.uid], action.user),
           lastUpdate: action.timestamp,
         }
+      }
+    case REMOVE_FETCHING_USER:
+      return {
+        ...state,
+        isFetching: false,
       }
     default: 
       return state
