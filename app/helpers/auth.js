@@ -10,7 +10,7 @@ export default auth
 
 
 export const checkIfAuthed = (store) => {
-  return store.getState().isAuthed
+  return store.getState().user.isAuthed
 }
 
 export const logout = () => {

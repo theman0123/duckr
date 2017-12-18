@@ -35,10 +35,10 @@ class AuthenticateContainer extends React.Component {
   }
 }
 
-function mapStateToProps (state) {
+function mapStateToProps ({user}) {
   return {
-    isFetching: state.isFetching,
-    error: state.error,
+    isFetching: user.isFetching,
+    error: user.error,
   }
 }
 

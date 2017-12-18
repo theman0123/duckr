@@ -17,20 +17,20 @@ class MainContainer extends React.Component {
     this.state = {redirect: false}
   }
    
-  componentDidMount () {
-    firebaseAuth().onAuthStateChanged((user) => {
-      if (user) {
-        const userData = user.providerData[0]
-        const userInfo = formatUserInfo(userData.displayName, userData.photoURL, user.uid)
-        this.props.authUser(user.uid)
-        this.props.fetchingUserSuccess(user.uid, userInfo, Date.now())
-        this.setState({redirect: true})
-        console.log(user)
-      } else {
-         this.props.removeFetchingUser()
-      }
-    })
-  }
+//  componentDidMount () {
+//    firebaseAuth().onAuthStateChanged((user) => {
+//      if (user) {
+//        const userData = user.providerData[0]
+//        const userInfo = formatUserInfo(userData.displayName, userData.photoURL, user.uid)
+//        this.props.authUser(user.uid)
+//        this.props.fetchingUserSuccess(user.uid, userInfo, Date.now())
+//        this.setState({redirect: true})
+//        console.log(user)
+//      } else {
+//         this.props.removeFetchingUser()
+//      }
+//    })
+//  }
   
   render () {
     if (this.state.redirect) {
@@ -58,6 +58,6 @@ MainContainer.propTypes = {
 }
 
 export default connect(
-  (state) => ({isAuthed: state.isAuthed, isFetching: state.isFetching}),
+  ({user}) => ({isAuthed: user.isAuthed, isFetching: user.isFetching}),
   (dispatch) => bindActionCreators(userActionCreators, dispatch),
 )(MainContainer)

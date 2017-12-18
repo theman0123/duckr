@@ -6,12 +6,11 @@ class FeedContainer extends React.Component {
   constructor (props) {
     super(props)
     
-    this.state = {redirect: false}
+
   }
     
-    componentWillMount() {
-      console.log('feed')
-    }
+//  componentWillMount() {
+//    }
 
   render () {
     return (

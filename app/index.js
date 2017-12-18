@@ -1,12 +1,12 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import GetRoutes from './config/Routes'
-import { createStore, applyMiddleware, compose } from 'redux'
+import { createStore, applyMiddleware, compose, combineReducers } from 'redux'
 import { Provider } from 'react-redux'
 import thunk from 'redux-thunk'
-import users from 'redux/modules/user'
+import * as reducers from 'redux/modules'
 
-const store = createStore(users, compose(
+const store = createStore(combineReducers(reducers), compose(
   applyMiddleware(thunk),
   window.devToolsExtension
   ? window.devToolsExtension()

@@ -35,4 +35,4 @@ class GetRoutes extends React.Component {
   }
 }
 
-export default connect((state) => ({isAuthed: state.isAuthed}))(GetRoutes)
+export default connect((state) => ({isAuthed: state.user.isAuthed}))(GetRoutes)
