@@ -94,7 +94,7 @@ function user (state = initialUserState, action) {
 const initialState = {
   isFetching: true,
   error: '',
-  isAuthed: true,
+  isAuthed: false,
   authedId: '',
 }
 

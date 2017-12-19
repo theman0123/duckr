@@ -27,18 +27,18 @@ const initialState = {
 
 export default function modal (state = initialState, action) {
   switch (action.type) {
-    case OPEN_MODAL :
+    case OPEN_MODAL:
       return {
         ...state,
         isOpen: true,
       }
-    case CLOSE_MODAL :
+    case CLOSE_MODAL:
       return {
         ...state,
         duckText: '',
         isOpen: false,
       }
-    case UPDATE_DUCK_TEXT :
+    case UPDATE_DUCK_TEXT:
       return {
         ...state,
         duckText: action.newDuckText,

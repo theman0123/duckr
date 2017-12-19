@@ -15,11 +15,11 @@ function mapStateToProps ({modal, user}, props) {
   }
 }
  
-function mapDispatchToProps (dispatch) {
+function mapDispatchToProps (dispatch, props) {
   return bindActionCreators({
     ...modalActionCreators,
-    ...ducksActionCreators},
-    dispatch)
+    ...ducksActionCreators,
+  }, dispatch)
 }
 
 export default connect(
