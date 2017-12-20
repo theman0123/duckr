@@ -1,10 +1,8 @@
 import React from 'react'
-import { BrowserRouter, Route, Switch, Redirect, withRouter } from 'react-router-dom'
+import PropTypes from 'prop-types'
+import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { MainContainer, HomeContainer, AuthenticateContainer, FeedContainer, LogoutContainer } from 'containers'
-import { Navigation } from 'components'
-import { fakeAuth } from 'helpers/auth'
-import { container } from 'containers/Main/styles.css'
 
 class GetRoutes extends React.Component {
   render () {
@@ -33,6 +31,10 @@ class GetRoutes extends React.Component {
       </BrowserRouter>
     )
   }
+}
+
+GetRoutes.propTypes = {
+  isAuthed: PropTypes.bool.isRequired,
 }
 
 export default connect((state) => ({isAuthed: state.user.isAuthed}))(GetRoutes)
