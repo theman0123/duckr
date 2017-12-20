@@ -1,7 +1,8 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-const Feed = () => {
+const Feed = (props) => {
+  console.log(props)
   return (
     <div> FEED </div>
   )
