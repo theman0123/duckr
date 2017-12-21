@@ -40,7 +40,7 @@ function count (state = 0, action) {
 }
 
 const initialState = {
-  count: '',
+  count: 0,
   isFetching: true,
   error: '',
 }

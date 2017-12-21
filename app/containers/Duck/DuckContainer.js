@@ -1,8 +1,10 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { withRouter, Redirect, Route } from 'react-router-dom'
+import { Redirect } from 'react-router-dom'
+import { bindActionCreators } from 'redux'
 import { Duck } from 'components'
 import { connect } from 'react-redux'
+import * as usersLikesActions from 'redux/modules/userLikes'
 
 class DuckContainer extends React.Component {
   constructor (props) {
@@ -14,12 +16,6 @@ class DuckContainer extends React.Component {
     }
   }
   
-  getDefaultProps () {
-    return {
-      hideRepyBtn: false,
-      hideLikeCount: true,
-    }
-  }
 
   goToProfile (e) {
     e.stopPropagation()
@@ -32,7 +28,6 @@ class DuckContainer extends React.Component {
   }
   
   render() {
-    console.log('looking: location',this.props)
     const { redirect, details } = this.state
     const props = this.props
     return redirect === false
@@ -47,12 +42,17 @@ class DuckContainer extends React.Component {
   }
 }
 
+DuckContainer.defaultProps = {
+  hideReplyBtn: false,
+  hideLikeCount: true,
+}
+
 const { string, number, object, array, func, bool} = PropTypes
 DuckContainer.propTypes = {
   duck: object.isRequired,
   handleClick: func,
   duckId: string.isRequired,
-  numberOfLikes: number.isRequired,
+  numberOfLikes: number,
   isLiked: bool.isRequired,
   hideLikeCount: bool.isRequired,
   hideReplyBtn: bool.isRequired,
@@ -60,18 +60,22 @@ DuckContainer.propTypes = {
   addAndHandleLike: func.isRequired,
 }
 
-function mapStateToProps({ducks, likeCount, usersLikes, location}, props) {
-  console.log('state and props', props)
+function mapStateToProps({ducks, likeCount, userLikes, location}, props) {
+  console.log('props and likeCount', props.duckId, likeCount[props.duckId])
   return {
     duck: ducks[props.duckId],
     hideLikeCount: props.hideLikeCount,
     hideReplyBtn: props.hideReplyBtn,
-    isLiked: false,//usersLikes[props.duckId] === true ? true : false,
-    numberOfLikes: 2,//likeCount[props.duckId],
-    location,
+    isLiked: userLikes[props.duckId] === true ? true : false,
+    numberOfLikes: likeCount[props.duckId],
   }
 }
 
-export default withRouter(connect(
+function mapDispatchToProps (dispatch) {
+  return bindActionCreators(usersLikesActions, dispatch)
+}
+
+export default connect(
   mapStateToProps,
-)(DuckContainer))
+  mapDispatchToProps
+)(DuckContainer)
