@@ -8,37 +8,39 @@ import * as usersLikesActions from 'redux/modules/userLikes'
 
 class DuckContainer extends React.Component {
   constructor (props) {
-    super (props)
-    
+    super(props)
+
     this.state = {
       redirect: false,
-      detail: false
+      details: false,
     }
+    this.handleClick = this.handleClick.bind(this)
+    this.goToProfile = this.goToProfile.bind(this)
   }
-  
 
   goToProfile (e) {
     e.stopPropagation()
-    this.setState(() => ({redirect: true, detail: false}))
+    this.setState(() => ({redirect: true, details: false}))
   }
-  
-  handleClick() {
+
+  handleClick (e) {
     e.preventDefault()
-    this.setState(() => ({redirect: true, detail: true}))
+    this.setState(() => ({redirect: true, details: true}))
   }
-  
-  render() {
+
+  render () {
     const { redirect, details } = this.state
     const props = this.props
+
     return redirect === false
       ? <Duck
-          goToProfile={this.goToProfile}
-          onClick={this.props.hideDetailBtn === true ? null : this.handleClick}
-          {...props}
+        goToProfile={this.goToProfile}
+        onClick={this.props.hideReplyBtn === true ? null : this.handleClick}
+        {...props}
       />
-      : detail === true 
-      ? <Redirect to={`/duckDetails/${props.duck.uid}`} />
-      : <Redirect to={`/duck/${props.duck.uid}`} />
+      : details === true
+        ? <Redirect to={`/duckDetails/${props.duck.uid}`} />
+        : <Redirect to={`/${props.duck.uid}`} />
   }
 }
 
@@ -47,7 +49,7 @@ DuckContainer.defaultProps = {
   hideLikeCount: true,
 }
 
-const { string, number, object, array, func, bool} = PropTypes
+const { string, number, object, func, bool } = PropTypes
 DuckContainer.propTypes = {
   duck: object.isRequired,
   handleClick: func,
@@ -60,13 +62,12 @@ DuckContainer.propTypes = {
   addAndHandleLike: func.isRequired,
 }
 
-function mapStateToProps({ducks, likeCount, userLikes, location}, props) {
-  console.log('props and likeCount', props.duckId, likeCount[props.duckId])
+function mapStateToProps ({ducks, likeCount, userLikes, location}, props) {
   return {
     duck: ducks[props.duckId],
     hideLikeCount: props.hideLikeCount,
     hideReplyBtn: props.hideReplyBtn,
-    isLiked: userLikes[props.duckId] === true ? true : false,
+    isLiked: userLikes[props.duckId] === true,
     numberOfLikes: likeCount[props.duckId],
   }
 }

@@ -71,7 +71,7 @@ export default function likeCount (state = initialState, action) {
         ? state
         : {
           ...state,
-          [action.duckId]: count(state[action.duckId], action) 
+          [action.duckId]: count(state[action.duckId], action)
         }
     default:
       return state

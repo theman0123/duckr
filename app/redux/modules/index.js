@@ -1,4 +1,4 @@
-export user from './user'
+export users from './users'
 export modal from './modal'
 export feed from './feed'
 export ducks from './ducks'

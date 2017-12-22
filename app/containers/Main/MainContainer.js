@@ -4,11 +4,12 @@ import { Route, withRouter, Redirect } from 'react-router'
 import { connect } from 'react-redux'
 import { Navigation } from 'components'
 import { bindActionCreators } from 'redux'
-import * as userActionCreators from 'redux/modules/user'
+import * as userActionCreators from 'redux/modules/users'
 import { formatUserInfo } from 'helpers/utils'
 import { firebaseAuth } from 'config/constants'
-
+import * as usersLikesActionCreators from 'redux/modules/userLikes'
 import { container, innerContainer } from './styles.css'
+
 
 class MainContainer extends React.Component {
   constructor (props) {
@@ -25,6 +26,7 @@ class MainContainer extends React.Component {
         this.props.authUser(user.uid)
         this.props.fetchingUserSuccess(user.uid, userInfo, Date.now())
         this.setState({redirect: true})
+        this.props.setUsersLikes()
       } else {
          this.props.removeFetchingUser()
       }
@@ -54,9 +56,13 @@ MainContainer.propTypes = {
   authUser: PropTypes.func.isRequired,
   fetchingUserSuccess: PropTypes.func.isRequired,
   removeFetchingUser: PropTypes.func.isRequired,
+  setUsersLikes: PropTypes.func.isRequired,
 }
 
 export default connect(
-  ({user}) => ({isAuthed: user.isAuthed, isFetching: user.isFetching}),
-  (dispatch) => bindActionCreators(userActionCreators, dispatch),
+  ({users}) => ({isAuthed: users.isAuthed, isFetching: users.isFetching}),
+  (dispatch) => bindActionCreators({
+    ...userActionCreators,
+    ...usersLikesActionCreators
+  }, dispatch)
 )(MainContainer)

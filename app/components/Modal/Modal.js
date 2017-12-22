@@ -21,17 +21,17 @@ const Modal = (props) => {
   function submitDuck () {
     return props.duckFanout(formatDuck(props.duckText, props.user.info))
   }
-  
+
   return (
     <div>
-    <span className={darkBtn} onClick={props.openModal}>{'Duck'}</span>
-      
-      <ReactModal 
-        style={modalStyles} 
+      <span className={darkBtn} onClick={props.openModal}>{'Duck'}</span>
+
+      <ReactModal
+        style={modalStyles}
         isOpen={props.isOpen}
         onRequestClose={props.closeModal}
-        contentLabel='Modal for Writing a Duck'
-      >
+        contentLabel='Modal for Writing a Duck'>
+
         <div className={newDuckTop}>
           <span>{'Compose new Duck'}</span>
           <span onClick={props.closeModal} className={pointer}>{'X'}</span>
@@ -49,12 +49,13 @@ const Modal = (props) => {
           className={submitDuckBtn}
           disabled={props.isSubmitDisabled}
           onClick={submitDuck}>
-            {'Duck'}
+          {'Duck'}
         </button>
       </ReactModal>
     </div>
   )
 }
+ReactModal.setAppElement('body');
 
 const {object, string, func, bool} = PropTypes
 

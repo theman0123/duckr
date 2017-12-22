@@ -1,5 +1,6 @@
 import auth, { logout, saveUser } from 'helpers/auth'
 import formatUserInfo from 'helpers/utils'
+import { fetchUser } from 'helpers/api'
 
 const AUTH_USER = 'AUTH_USER'
 const UNAUTH_USER = 'UNAUTH_USER'
@@ -28,6 +29,7 @@ const fetchingUser = () => {
 }
 
 function fetchingUserFailure (error) {
+  console.warn(error)
   return {
     type: FETCHING_USER_FAILURE,
     error: 'Error fetching user',
@@ -43,12 +45,21 @@ export const fetchingUserSuccess = (uid, user, timestamp) => {
   }
 }
 
+export function fetchAndHandleUser (uid) {
+  return function (dispatch) {
+    dispatch(fetchingUser())
+    return fetchUser(uid)
+      .then((user) => fetchingUserSuccess(uid, user, Date.now()))
+      .catch((error) => fetchingUserFailure(error))
+  }
+}
+
 export const fetchAndHandleAuthedUser = () => {
   return function (dispatch) {
     dispatch(fetchingUser())
     return auth().then(({user, credentials}) => {
       const userData = user.providerData[0]
-      const userInfo = formatUserInfo(userData.displayName, userData.photoURL, userData.uid)
+      const userInfo = formatUserInfo(userData.displayName, userData.photoURL, user.uid)
       return dispatch(fetchingUserSuccess(user.uid, userInfo, Date.now()))
     })
       .then(({user}) => saveUser(user))
