@@ -25,10 +25,10 @@ class MainContainer extends React.Component {
         const userInfo = formatUserInfo(userData.displayName, userData.photoURL, user.uid)
         this.props.authUser(user.uid)
         this.props.fetchingUserSuccess(user.uid, userInfo, Date.now())
-        this.setState({redirect: true})
         this.props.setUsersLikes()
+        this.setState({redirect: true})
       } else {
-         this.props.removeFetchingUser()
+        this.props.removeFetchingUser()
       }
     })
   }

@@ -17,7 +17,7 @@ export default function User (props) {
           {props.duckIds.map((id) => (
             <DuckContainer duckId={id} key={id} />
           ))}
-          {props.duckIds === 0
+          {props.duckIds.length <= 0
             ? <p className={header}>{`looks like ${props.name.split(' ')[0]} hasn't made any ducks yet`}</p>
             : null}
         </div>}
