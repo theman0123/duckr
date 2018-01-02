@@ -11,14 +11,13 @@ import { staleUser, staleDucks } from 'helpers/utils'
 class UserContainer extends React.Component {
   componentDidMount () {
     const uid = this.props.match.params.uid
-console.log(uid)
+
     if (this.props.noUser === true || staleUser(this.props.lastUpdated)) {
-      this.props.fetchAndHandleUsersDucks(uid)
       this.props.fetchAndHandleUser(uid)
     }
-    
-    if (this.props.name && !this.props.duckIds) {
-      this.props.fetchAndHandleUser(uid)
+
+    if (this.props.noUser === true || staleDucks(this.props.lastUpdated)) {
+      this.props.fetchAndHandleUsersDucks(uid)
     }
   }
   
@@ -49,10 +48,11 @@ function mapStateToProps ({users, usersDucks}, props) {
   const specificUsersDucks = usersDucks[props.match.params.uid]
   const user = users[props.match.params.uid]
   const noUser = typeof user === 'undefined'
-
+  const name = noUser ? '' : user.info.name
+  
   return {
     noUser,
-    name: noUser ? '' : user.info.name,
+    name,
     isFetching: users.isFetching || usersDucks.isFetching,
     error: users.error || usersDucks.error,
     duckIds: specificUsersDucks ? specificUsersDucks.duckIds : [],

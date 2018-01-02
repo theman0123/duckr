@@ -19,15 +19,14 @@ class GetRoutes extends React.Component {
     return (
       <BrowserRouter>
         <div>
-          <Switch>
-            <MainContainer>
-              <Route exact path='/' component={HomeContainer} />
-              <Route exact path='/auth' component={AuthenticateContainer} />
-              <Route exact path='/logout' component={LogoutContainer} />
-              <PrivateRoute path='/feed' component={FeedContainer} />
-              <PrivateRoute path='/:uid' component={UserContainer} />
-            </MainContainer>
-          </Switch>
+          <MainContainer />
+            <Switch>
+                <Route exact path='/' component={HomeContainer} />
+                <Route exact path='/auth' component={AuthenticateContainer} />
+                <Route exact path='/logout' component={LogoutContainer} />
+                <PrivateRoute exact path='/feed' component={FeedContainer} />
+                <PrivateRoute path='/:uid' component={UserContainer} />
+            </Switch>
         </div>
       </BrowserRouter>
     )
