@@ -12,7 +12,6 @@ class DuckContainer extends React.Component {
 
     this.state = {
       redirect: false,
-      details: false,
     }
     this.handleClick = this.handleClick.bind(this)
     this.goToProfile = this.goToProfile.bind(this)
@@ -20,12 +19,12 @@ class DuckContainer extends React.Component {
 
   goToProfile (e) {
     e.stopPropagation()
-    this.setState(() => ({redirect: true, details: false}))
+    this.setState(() => ({redirect: true}))
   }
 
   handleClick (e) {
     e.preventDefault()
-    this.setState(() => ({redirect: true, details: true}))
+    this.setState(() => ({redirect: true}))
   }
 
   render () {

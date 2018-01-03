@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom'
 import { connect } from 'react-redux'
-import { MainContainer, HomeContainer, AuthenticateContainer, FeedContainer, LogoutContainer, UserContainer } from 'containers'
+import { MainContainer, HomeContainer, AuthenticateContainer, FeedContainer, LogoutContainer, UserContainer, DuckDetailsContainer } from 'containers'
 
 class GetRoutes extends React.Component {
   render () {
@@ -20,13 +20,14 @@ class GetRoutes extends React.Component {
       <BrowserRouter>
         <div>
           <MainContainer />
-            <Switch>
-                <Route exact path='/' component={HomeContainer} />
-                <Route exact path='/auth' component={AuthenticateContainer} />
-                <Route exact path='/logout' component={LogoutContainer} />
-                <PrivateRoute exact path='/feed' component={FeedContainer} />
-                <PrivateRoute path='/:uid' component={UserContainer} />
-            </Switch>
+          <Switch>
+            <Route exact path='/' component={HomeContainer} />
+            <Route exact path='/auth' component={AuthenticateContainer} />
+            <Route exact path='/logout' component={LogoutContainer} />
+            <PrivateRoute exact path='/feed' component={FeedContainer} />
+            <PrivateRoute path='/duckDetails/:duckId' component={DuckDetailsContainer} />
+            <PrivateRoute path='/:uid' component={UserContainer} />
+          </Switch>
         </div>
       </BrowserRouter>
     )
