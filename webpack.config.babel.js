@@ -2,21 +2,22 @@ import path from 'path'
 import webpack from 'webpack'
 import HtmlWebpackPlugin from 'html-webpack-plugin'
 
-const HTMLWebpackPluginConfig = new HtmlWebpackPlugin({
-  template: __dirname + '/app/index.html',
-  filename: 'index.html',
-  inject: 'body'
-})
+const LAUNCHCOMMAND = process.env.npm_lifecycle_event
+
+const isProduction = LAUNCHCOMMAND === 'production'
+process.env.BABEL_ENV = LAUNCHCOMMAND
 
 const PATHS = {
   app: path.join(__dirname, 'app'),
   build: path.join(__dirname, 'dist'),
 }
 
-const LAUNCHCOMMAND = process.env.npm_lifecycle_event
+const HTMLWebpackPluginConfig = new HtmlWebpackPlugin({
+  template: PATHS.app + '/index.html',
+  filename: 'index.html',
+  inject: 'body'
+})
 
-const isProduction = LAUNCHCOMMAND === 'production'
-process.env.BABEL_ENV = LAUNCHCOMMAND
 
 const productionPlugin = new webpack.DefinePlugin({
   'process.env': {

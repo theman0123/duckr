@@ -9,6 +9,11 @@ import * as likeCountActionCreators from 'redux/modules/likeCount'
 
 class DuckDetailsContainer extends React.Component {
   componentDidMount () {
+    console.log(this.props)
+    if (this.props.location.pathname === '/duckDetails/index_bundle.js') {
+      //won't fire since it needs to serve up index_bundle.js on the server side to enter the app. not sure how to fix it
+      console.log(this.props.location.history)
+    }
     this.props.initLikeFetch(this.props.duckId)
     
     if (this.props.duckAlreadyFetched === false) {

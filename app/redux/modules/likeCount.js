@@ -39,20 +39,15 @@ export function initLikeFetch(duckId) {
 function count (state = 0, action) {
   switch (action.type) {
     case ADD_LIKE:
-      return {
-        ...state + 1,
-      }
+      return state + 1
     case REMOVE_LIKE:
-      return {
-        ...state - 1,
-      }
+      return state - 1
     default :
       return state
   }
 }
 
 const initialState = {
-  count: 0,
   isFetching: false,
   error: '',
 }
