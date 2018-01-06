@@ -28,9 +28,9 @@ export default function Duck (props) {
 
           <div>{formatTimestamp(props.duck.timestamp)}</div>
         </div>
-        <Link to={`/duckDetails/${props.duck.duckId}`}>
-          <div className={text}>{props.duck.text}</div>
-        </Link>
+        
+        <div className={text}>{props.duck.text}</div>
+
         <div className={likeReplyContainer}>
           {props.hideReplyBtn === true
             ? null

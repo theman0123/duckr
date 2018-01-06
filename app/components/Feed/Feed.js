@@ -1,5 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import { Link } from 'react-router-dom'
 import { newDuckContainer, header } from './styles.css'
 import { DuckContainer } from 'containers'
 import { errorMsg } from 'sharedStyles/styles.css'

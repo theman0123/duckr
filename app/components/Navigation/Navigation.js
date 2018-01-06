@@ -8,7 +8,7 @@ import { container, navContainer, link} from './styles.css'
 const NavLinks = ({isAuthed}) => {
   return isAuthed === true
     ? <ul>
-        <Link to='/'>{'Home'}</Link>
+        <Link to='/feed'>{'Home'}</Link>
       </ul>
     : null
 }

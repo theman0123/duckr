@@ -329,3 +329,36 @@ function repliesAndLastUpated (state = initialDuckState, action) {
       return state
   }
 }
+
+const initialState = {
+  isFetching: true,
+  error: '',
+}
+
+export default function replies (state = initialState, action) {
+  switch (action.type) {
+    case FETCHING_REPLIES :
+      return {
+        ...state,
+        isFetching: true,
+      }
+    case FETCHING_REPLIES_ERROR :
+    case ADD_REPLY_ERROR :
+      return {
+        ...state,
+        isFetching: false,
+        error: action.error,
+      }
+    case ADD_REPLY :
+    case FETCHING_REPLIES_SUCCESS :
+    case REMOVE_REPLY :
+      return {
+        ...state,
+        isFetching: false,
+        error: '',
+        [action.duckId]: repliesAndLastUpated(state[action.duckId], action),
+      }
+    default :
+      return state
+  }
+}
