@@ -9,7 +9,6 @@ const ADD_SINGLE_USERS_DUCK = 'ADD_SINGLE_USERS_DUCK'
 function fetchingUsersDucks (uid) {
   return {
     type: FETCHING_USERS_DUCKS,
-    uid,
   }
 }
 
@@ -41,7 +40,7 @@ export function addSingleUsersDuck (uid, duckId) {
 export function fetchAndHandleUsersDucks (uid) {
   return function (dispatch, getState) {
     dispatch(fetchingUsersDucks())
-    
+
     fetchUsersDucks(uid)
       .then((ducks) => dispatch(addMultipleDucks(ducks)))
       .then(({ducks}) => dispatch(

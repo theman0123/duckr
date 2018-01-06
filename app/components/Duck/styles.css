@@ -66,4 +66,5 @@
 
 .author {
   composes: clickable from 'sharedStyles/styles.css';
+  text-decoration: none;
 }

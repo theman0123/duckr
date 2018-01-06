@@ -30,17 +30,14 @@ class DuckContainer extends React.Component {
 
   render () {
     const { redirect, details } = this.state
-    const props = this.props
 
-    return redirect === false
-      ? <Duck
+    return (  
+      <Duck
         goToProfile={this.goToProfile}
         onClick={this.props.hideReplyBtn === true ? null : this.handleClick}
-        {...props}
+        {...this.props}
       />
-      : details === true
-        ? <Redirect to={`/duckDetails/${props.duck.uid}`} />
-        : <Redirect to={`/${props.duck.uid}`} />
+    )
   }
 }
 

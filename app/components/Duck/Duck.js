@@ -1,5 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import { Link } from 'react-router-dom'
 import { formatTimestamp } from 'helpers/utils'
 import Reply from 'react-icons/lib/fa/mail-reply'
 import Star from 'react-icons/lib/fa/star'
@@ -16,12 +17,16 @@ export default function Duck (props) {
       className={duckContainer}
       style={{cursor: props.hideReplyBtn ? 'default' : 'pointer'}}
       onClick={props.onClick}>
-        <img src={props.duck.avatar} className={avatar} />
-        <div className={contentContainer}>
-          <div className={header}>
-            <div onClick={props.goToProfile} className={author}>{props.duck.name}</div>
-            <div>{formatTimestamp(props.duck.timestamp)}</div>
-          </div>
+      <img src={props.duck.avatar} className={avatar} />
+      <div className={contentContainer}>
+        <div className={header}>
+
+          <Link className={author} to={`/${props.duck.uid}`}>
+            {props.duck.name}
+          </Link>
+
+          <div>{formatTimestamp(props.duck.timestamp)}</div>
+        </div>
         <div className={text}>{props.duck.text}</div>
         <div className={likeReplyContainer}>
           {props.hideReplyBtn === true

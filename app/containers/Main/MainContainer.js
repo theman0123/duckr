@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { Route, withRouter, Redirect } from 'react-router'
+import { withRouter, Redirect } from 'react-router'
 import { connect } from 'react-redux'
 import { Navigation } from 'components'
 import { bindActionCreators } from 'redux'
@@ -25,16 +25,16 @@ class MainContainer extends React.Component {
         const userInfo = formatUserInfo(userData.displayName, userData.photoURL, user.uid)
         this.props.authUser(user.uid)
         this.props.fetchingUserSuccess(user.uid, userInfo, Date.now())
-        this.setState({redirect: true})
         this.props.setUsersLikes()
+        this.setState({redirect: true})
       } else {
-         this.props.removeFetchingUser()
+        this.props.removeFetchingUser()
       }
     })
   }
   
   render () {
-    if (this.state.redirect) {
+    if (this.state.redirect === true) {
       this.setState({redirect:false})
       return <Redirect to='/feed' /> 
     }
@@ -42,7 +42,6 @@ class MainContainer extends React.Component {
       <div className={container}>
         <Navigation isAuthed={this.props.isAuthed} />
         <div className={innerContainer}>
-          {this.props.children}
         </div>
       </div>
     )
@@ -50,7 +49,6 @@ class MainContainer extends React.Component {
 }
 
 MainContainer.propTypes = {
-  children: PropTypes.node.isRequired,
   isAuthed: PropTypes.bool.isRequired,
   isFetching: PropTypes.bool.isRequired,
   authUser: PropTypes.func.isRequired,
