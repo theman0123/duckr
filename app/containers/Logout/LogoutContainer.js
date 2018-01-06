@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { Logout } from 'components'
-import { logoutAndUnauthed } from 'redux/modules/user'
+import { logoutAndUnauthed } from 'redux/modules/users'
 
 class LogoutContainer extends React.Component {
   

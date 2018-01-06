@@ -5,7 +5,7 @@ import { Authenticate } from 'components'
 import auth from 'helpers/auth'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import * as userActionCreators from 'redux/modules/user'
+import * as userActionCreators from 'redux/modules/users'
 
 class AuthenticateContainer extends React.Component {
   constructor (props) {
@@ -35,10 +35,10 @@ class AuthenticateContainer extends React.Component {
   }
 }
 
-function mapStateToProps ({user}) {
+function mapStateToProps ({users}) {
   return {
-    isFetching: user.isFetching,
-    error: user.error,
+    isFetching: users.isFetching,
+    error: users.error,
   }
 }
 

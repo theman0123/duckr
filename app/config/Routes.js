@@ -1,10 +1,8 @@
 import React from 'react'
-import { BrowserRouter, Route, Switch, Redirect, withRouter } from 'react-router-dom'
+import PropTypes from 'prop-types'
+import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom'
 import { connect } from 'react-redux'
-import { MainContainer, HomeContainer, AuthenticateContainer, FeedContainer, LogoutContainer } from 'containers'
-import { Navigation } from 'components'
-import { fakeAuth } from 'helpers/auth'
-import { container } from 'containers/Main/styles.css'
+import { MainContainer, HomeContainer, AuthenticateContainer, FeedContainer, LogoutContainer, UserContainer } from 'containers'
 
 class GetRoutes extends React.Component {
   render () {
@@ -27,6 +25,7 @@ class GetRoutes extends React.Component {
               <Route exact path='/auth' component={AuthenticateContainer} />
               <Route exact path='/logout' component={LogoutContainer} />
               <PrivateRoute path='/feed' component={FeedContainer} />
+              <PrivateRoute path='/:uid' component={UserContainer} />
             </MainContainer>
           </Switch>
         </div>
@@ -35,4 +34,8 @@ class GetRoutes extends React.Component {
   }
 }
 
-export default connect((state) => ({isAuthed: state.user.isAuthed}))(GetRoutes)
+GetRoutes.propTypes = {
+  isAuthed: PropTypes.bool.isRequired,
+}
+
+export default connect((state) => ({isAuthed: state.users.isAuthed}))(GetRoutes)

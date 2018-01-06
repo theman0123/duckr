@@ -8,9 +8,8 @@ const auth = () => {
 
 export default auth
 
-
 export const checkIfAuthed = (store) => {
-  return store.getState().user.isAuthed
+  return store.getState().user.isAuthed === true
 }
 
 export const logout = () => {
@@ -20,5 +19,5 @@ export const logout = () => {
 export const saveUser = (user) => {
   return ref.child(`users/${user.uid}`)
     .set(user)
-    .then((user) => user)
+    .then(() => user)
 }
