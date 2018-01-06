@@ -1,26 +1,46 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { Switch, Route } from 'react-router'
+import { Route, withRouter, Redirect } from 'react-router'
 import { connect } from 'react-redux'
-import { HomeContainer } from 'containers'
 import { Navigation } from 'components'
-import Unknown from 'config/Unknown'
+import { bindActionCreators } from 'redux'
+import * as userActionCreators from 'redux/modules/user'
+import { formatUserInfo } from 'helpers/utils'
+import { firebaseAuth } from 'config/constants'
 
 import { container, innerContainer } from './styles.css'
 
 class MainContainer extends React.Component {
+  constructor (props) {
+    super(props)
+    
+    this.state = {redirect: false}
+  }
+   
+  componentDidMount () {
+    firebaseAuth().onAuthStateChanged((user) => {
+      if (user) {
+        const userData = user.providerData[0]
+        const userInfo = formatUserInfo(userData.displayName, userData.photoURL, user.uid)
+        this.props.authUser(user.uid)
+        this.props.fetchingUserSuccess(user.uid, userInfo, Date.now())
+        this.setState({redirect: true})
+      } else {
+         this.props.removeFetchingUser()
+      }
+    })
+  }
+  
   render () {
-    console.log()
+    if (this.state.redirect) {
+      this.setState({redirect:false})
+      return <Redirect to='/feed' /> 
+    }
     return (
       <div className={container}>
-        
         <Navigation isAuthed={this.props.isAuthed} />
-        
         <div className={innerContainer}>
-          <Switch>
-            <Route exact path='/' component={HomeContainer} />
-            <Route component={Unknown} />
-          </Switch>
+          {this.props.children}
         </div>
       </div>
     )
@@ -28,9 +48,15 @@ class MainContainer extends React.Component {
 }
 
 MainContainer.propTypes = {
+  children: PropTypes.node.isRequired,
   isAuthed: PropTypes.bool.isRequired,
+  isFetching: PropTypes.bool.isRequired,
+  authUser: PropTypes.func.isRequired,
+  fetchingUserSuccess: PropTypes.func.isRequired,
+  removeFetchingUser: PropTypes.func.isRequired,
 }
 
 export default connect(
-  (state) => ({isAuthed: state.isAuthed})
+  ({user}) => ({isAuthed: user.isAuthed, isFetching: user.isFetching}),
+  (dispatch) => bindActionCreators(userActionCreators, dispatch),
 )(MainContainer)

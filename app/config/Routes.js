@@ -1,16 +1,33 @@
 import React from 'react'
-import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom'
-import { MainContainer, AuthenticateContainer, FeedContainer } from 'containers'
+import { BrowserRouter, Route, Switch, Redirect, withRouter } from 'react-router-dom'
+import { connect } from 'react-redux'
+import { MainContainer, HomeContainer, AuthenticateContainer, FeedContainer, LogoutContainer } from 'containers'
+import { Navigation } from 'components'
+import { fakeAuth } from 'helpers/auth'
+import { container } from 'containers/Main/styles.css'
 
-class Routes extends React.Component {
+class GetRoutes extends React.Component {
   render () {
+    const PrivateRoute = ({ component: Component, ...rest }) => {
+      return (
+        <Route {...rest} render={(props) => (
+          this.props.isAuthed === true
+            ? <Component {...props} />
+            : <Redirect to='/auth' />
+        )} />
+      )
+    }
+
     return (
       <BrowserRouter>
-        <div>          
+        <div>
           <Switch>
-            <Route exact path='/' component={MainContainer} />
-            <Route exact path='/auth' component={AuthenticateContainer} />
-            <Route path='/feed' component={FeedContainer} />
+            <MainContainer>
+              <Route exact path='/' component={HomeContainer} />
+              <Route exact path='/auth' component={AuthenticateContainer} />
+              <Route exact path='/logout' component={LogoutContainer} />
+              <PrivateRoute path='/feed' component={FeedContainer} />
+            </MainContainer>
           </Switch>
         </div>
       </BrowserRouter>
@@ -18,4 +35,4 @@ class Routes extends React.Component {
   }
 }
 
-export default Routes
+export default connect((state) => ({isAuthed: state.user.isAuthed}))(GetRoutes)

@@ -1,6 +1,7 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import PropTypes from 'prop-types'
+import { ModalContainer } from 'containers'
 
 import { container, navContainer, link} from './styles.css'
 
@@ -15,7 +16,7 @@ const NavLinks = ({isAuthed}) => {
 const ActionLinks = ({isAuthed}) => {
   return isAuthed === true
     ? <ul>
-        <li>NEW DUCK</li>
+        <li><ModalContainer /></li>
         <li><Link className={link} to='/logout'>{'Logout'}</Link></li>
       </ul>
     : <ul>
