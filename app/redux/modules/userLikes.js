@@ -1,5 +1,5 @@
 import {
-  fetchUsersLikes, saveToUsersLikes, deleteFromUsersLikes, incrementNumberOfLikes, decrementNumberOfLikes } from 'helpers/api'
+  fetchUsersLikes, saveToUsersLikes, deleteFromUsersLikes, incrementNumberOfLikes, decrementNumberOfLikes, fetchLikeCount } from 'helpers/api'
 
 
 export const ADD_LIKE = 'ADD_LIKE'
@@ -50,7 +50,7 @@ export function addAndHandleLike (duckId, e) {
     const uid = getState().users.authedId
     Promise.all([
       saveToUsersLikes(uid, duckId),
-      incrementNumberOfLikes(duckId)
+      incrementNumberOfLikes(duckId),
     ]).catch((error) => {
       console.warn(error)
       dispatch(removeLike(duckId))
@@ -66,7 +66,7 @@ export function handleDeleteLike (duckId, e) {
     const uid = getState().users.authedId
     Promise.all([
       deleteFromUsersLikes(uid, duckId),
-      decrementNumberOfLikes(duckId)
+      decrementNumberOfLikes(duckId),
     ]).catch((error) => {
       console.warn(error)
       dispatch(addLike(duckId))
@@ -118,7 +118,7 @@ export default function usersLikes (state = initialState, action) {
       }
     case REMOVE_LIKE :
       return Object.keys(state)
-        .filter(duckId => {duckId !== action.duckId})
+        .filter((duckId) => duckId !== action.duckId)
         .reduce((prev, current) => {
           prev[current] = state[current]
           return prev

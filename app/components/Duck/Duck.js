@@ -12,6 +12,7 @@ import {
 export default function Duck (props) {
   const starIcon = props.isLiked === true ? likedIcon : icon
   const starFn = props.isLiked === true ? props.handleDeleteLike : props.addAndHandleLike
+  
   return (
     <div
       className={duckContainer}
@@ -27,14 +28,16 @@ export default function Duck (props) {
 
           <div>{formatTimestamp(props.duck.timestamp)}</div>
         </div>
-        <div className={text}>{props.duck.text}</div>
+        <Link to={`/duckDetails/${props.duck.duckId}`}>
+          <div className={text}>{props.duck.text}</div>
+        </Link>
         <div className={likeReplyContainer}>
           {props.hideReplyBtn === true
             ? null
             : <Reply className={icon} />}
         <div className={actionContainer}>
           <Star className={starIcon} onClick={(e) => starFn(props.duck.duckId, e)} />
-          {props.hideLikeCount === true ? null : <div> props.numberOfLikes </div>}
+          {props.hideLikeCount === true ? null : <div>{props.numberOfLikes}</div>}
          </div>
        </div>
       </div>
