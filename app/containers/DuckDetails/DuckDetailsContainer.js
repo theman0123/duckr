@@ -6,14 +6,14 @@ import { withRouter } from 'react-router-dom'
 import { bindActionCreators } from 'redux'
 import * as duckActionCreators from 'redux/modules/ducks'
 import * as likeCountActionCreators from 'redux/modules/likeCount'
+import * as replyActionCreators from 'redux/modules/replies'
 
 class DuckDetailsContainer extends React.Component {
   componentDidMount () {
-    console.log(this.props)
-    if (this.props.location.pathname === '/duckDetails/index_bundle.js') {
-      //won't fire since it needs to serve up index_bundle.js on the server side to enter the app. not sure how to fix it
-      console.log(this.props.location.history)
-    }
+//    if (this.props.location.pathname === '/duckDetails/index_bundle.js') {
+//      //won't fire since it needs to serve up index_bundle.js on the server side to enter the app. not sure how to fix it
+//      console.log(this.props.location.history)
+//    }
     this.props.initLikeFetch(this.props.duckId)
     
     if (this.props.duckAlreadyFetched === false) {
@@ -26,7 +26,8 @@ class DuckDetailsContainer extends React.Component {
   
   render() {
     return (
-      <DuckDetails 
+      <DuckDetails
+        addAndHandleReply={this.props.addAndHandleReply}
         authedUser={this.props.authedUser}
         duckId={this.props.duckId}
         isFetching={this.props.isFetching}
@@ -44,6 +45,7 @@ DuckDetailsContainer.propTypes = {
   removeFetching: PropTypes.func.isRequired,
   fetchAndHandleDuck: PropTypes.func.isRequired,
   initLikeFetch: PropTypes.func.isRequired,
+  addAndHandleReply: PropTypes.func.isRequired,
 }
 
 function mapStateToProps ({ducks, likeCount, users}, props) {
@@ -59,7 +61,8 @@ function mapStateToProps ({ducks, likeCount, users}, props) {
 function mapDispatchToProps (dispatch) {
   return bindActionCreators({
     ...duckActionCreators,
-    ...likeCountActionCreators
+    ...likeCountActionCreators,
+    ...replyActionCreators,
   }, dispatch)
 }
 

@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom'
+import { Router, Route, Switch, Redirect } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { MainContainer, HomeContainer, AuthenticateContainer, FeedContainer, LogoutContainer, UserContainer, DuckDetailsContainer } from 'containers'
 
@@ -17,7 +17,7 @@ class GetRoutes extends React.Component {
     }
 
     return (
-      <BrowserRouter>
+      <Router history={this.props.history}>
         <div>
           <MainContainer />
           <Switch>
@@ -25,11 +25,11 @@ class GetRoutes extends React.Component {
             <Route exact path='/auth' component={AuthenticateContainer} />
             <Route exact path='/logout' component={LogoutContainer} />
             <PrivateRoute exact path='/feed' component={FeedContainer} />
-            <PrivateRoute exact path='/duckDetails/:duckId' component={DuckDetailsContainer} />
+            <PrivateRoute path='/duckDetails/:duckId' component={DuckDetailsContainer} />
             <PrivateRoute path='/:uid' component={UserContainer} />
           </Switch>
         </div>
-      </BrowserRouter>
+      </Router>
     )
   }
 }
