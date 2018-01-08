@@ -64,7 +64,7 @@ DuckContainer.propTypes = {
 
 function mapStateToProps ({ducks, likeCount, userLikes, location}, props) {
   return {
-    duck: ducks[props.duckId],
+    duck: ducks.get(props.duckId),
     hideLikeCount: props.hideLikeCount,
     hideReplyBtn: props.hideReplyBtn,
     isLiked: userLikes[props.duckId] === true,

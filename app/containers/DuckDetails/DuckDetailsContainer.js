@@ -10,10 +10,6 @@ import * as replyActionCreators from 'redux/modules/replies'
 
 class DuckDetailsContainer extends React.Component {
   componentDidMount () {
-//    if (this.props.location.pathname === '/duckDetails/index_bundle.js') {
-//      //won't fire since it needs to serve up index_bundle.js on the server side to enter the app. not sure how to fix it
-//      console.log(this.props.location.history)
-//    }
     this.props.initLikeFetch(this.props.duckId)
     
     if (this.props.duckAlreadyFetched === false) {
@@ -50,11 +46,11 @@ DuckDetailsContainer.propTypes = {
 
 function mapStateToProps ({ducks, likeCount, users}, props) {
   return {
-    isFetching: ducks.isFetching || likeCount.isFetching,
-    error: ducks.error,
+    isFetching: ducks.get('isFetching') || likeCount.isFetching,
+    error: ducks.get('error'),
     authedUser: users[users.authedId].info,
     duckId: props.match.params.duckId,
-    duckAlreadyFetched: !!ducks[props.match.params.duckId],
+    duckAlreadyFetched: !!ducks.get(props.match.params.duckId),
   }
 }
 

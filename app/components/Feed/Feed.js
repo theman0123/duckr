@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom'
 import { newDuckContainer, header } from './styles.css'
 import { DuckContainer } from 'containers'
 import { errorMsg } from 'sharedStyles/styles.css'
+import { List } from 'immutable'
 
 function NewDucksAvailable ({handleClick}) {
   return (
@@ -25,7 +26,7 @@ const Feed = (props) => {
       {props.newDucksAvailable
         ? <NewDucksAvailable handleClick={props.resetNewDucksAvailable} />
         : null}
-      {props.duckIds.length === 0
+      {props.duckIds.size === 0
         ? <p className={header}>{'This is unfortunate.'} <br /> {'It appears there are no ducks yet 😞'}</p>
         : null}
       {props.duckIds.map((id) => (
@@ -40,7 +41,7 @@ const Feed = (props) => {
 }
 
 Feed.propTypes = {
-  duckIds: PropTypes.array.isRequired,
+  duckIds: PropTypes.instanceOf(List),
   newDucksAvailable: PropTypes.bool.isRequired,
   error: PropTypes.string.isRequired,
   isFetching: PropTypes.bool.isRequired,
